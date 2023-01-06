@@ -51,6 +51,9 @@ let doctor = {
     nom : "MrDoctor",
     argent : 100,
     cabinet : [],
+    chat(){
+        console.log("miau");
+    },
     diagnostique(patient){
         switch (patient.maladie) {
             case "mal indenté":
@@ -91,6 +94,8 @@ let doctor = {
         patient.goTo(this.cabinet, pharmacie.pharma);
     }
 }
+
+//setInterval(doctor.chat, 2000);
 
 // |nom|argent|cabinet|diagnostique|patienTIn|patientOut
 // |---|---|---|---|---|---|
