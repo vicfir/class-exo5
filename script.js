@@ -95,7 +95,7 @@ let doctor = {
     }
 }
 
-//setInterval(doctor.chat, 2000);
+setInterval(doctor.chat, 2000);
 
 // |nom|argent|cabinet|diagnostique|patienTIn|patientOut
 // |---|---|---|---|---|---|
