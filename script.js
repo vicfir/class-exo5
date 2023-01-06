@@ -114,6 +114,7 @@ let pharmacie = {
         switch (patient.poche) {
             case `ctrl+maj+f`:
                 if(patient.argent >= 60){
+                    patient.paye(60, this);
                     patient.traitement("bonne santé");
                 } else {
                     patient.traitement("mort");
@@ -123,6 +124,7 @@ let pharmacie = {
             
             case `saveOnFocusChange`:
                 if(patient.argent >= 100){
+                    patient.paye(100, this);
                     patient.traitement("bonne santé");
                 } else {
                     patient.traitement("mort");
@@ -132,6 +134,7 @@ let pharmacie = {
 
             case `CheckLinkRelation`:
                 if(patient.argent >= 35){
+                    patient.paye(35, this);
                     patient.traitement("bonne santé");
                 } else {
                     patient.traitement("mort");
@@ -141,6 +144,7 @@ let pharmacie = {
 
             case `Ventoline`:
                 if(patient.argent >= 40){
+                    patient.paye(40, this);
                     patient.traitement("bonne santé");
                 } else {
                     patient.traitement("mort");
@@ -150,6 +154,7 @@ let pharmacie = {
 
             case `f12+doc`:
                 if(patient.argent >= 20){
+                    patient.paye(20, this);
                     patient.traitement("bonne santé");
                 } else {
                     patient.traitement("mort");
@@ -246,3 +251,4 @@ console.log(semicolon);
 
 console.log(cimetiere);
 console.log(doctor.argent);
+console.log(pharmacie.argent);
