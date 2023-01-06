@@ -22,9 +22,9 @@ class Malades {
     takeCare(){
         pharmacie.tarif(this);
     }
-    paye(prix){
+    paye(prix, destinataire){
         this.argent -= prix;
-        doctor.argent += prix;
+        destinataire.argent += prix;
     }
 }
 
@@ -54,27 +54,27 @@ let doctor = {
     diagnostique(patient){
         switch (patient.maladie) {
             case "mal indenté":
-                patient.paye(50);
+                patient.paye(50, this);
                 patient.poche ="ctrl+maj+f";
                 break;
 
             case "unsave":
-                patient.paye(50);
+                patient.paye(50, this);
                 patient.poche = "saveOnFocusChange";
                 break;
 
             case "404":
-                patient.paye(50);
+                patient.paye(50, this);
                 patient.poche = "CheckLinkRelation";
                 break;
 
             case "azmatique":
-                patient.paye(50);
+                patient.paye(50, this);
                 patient.poche = "Ventoline";
                 break;
 
             case "syntaxError":
-                patient.paye(50);
+                patient.paye(50, this);
                 patient.poche = "f12+doc";
                 break;
             
@@ -109,6 +109,7 @@ let doctor = {
 // >Les patients iront par après à la pharmacie et recevront leur traitement s'ils ont assez d'argent. Dans le cas ou ils ont assez d'argent ils seront alors en bonne santé sinon ils seront mort et il faudra alors les pousser dans un cimetière.
 let pharmacie = {
     pharma : [],
+    argent : 100,
     tarif(patient){
         switch (patient.poche) {
             case `ctrl+maj+f`:
@@ -242,4 +243,6 @@ doctor.patientOut(semicolon);
 
 semicolon.takeCare();
 console.log(semicolon);
+
 console.log(cimetiere);
+console.log(doctor.argent);
