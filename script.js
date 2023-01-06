@@ -46,6 +46,13 @@ let salleAttente = [marcus, optimus, sangoku, darthVader, semicolon];
 
 // ## Description du doctor
 // >Le doctor lui reçoit les patients dans son cabinet. Tout d'abord il les diagnostiques puis se fait payé avant de préscrire un traitement. Attention le doctor fait à chaque fois sortir le patient de son cabinet avant de prendre le suivant. Dans son cabinet il y a son chat de race sphynx pour garder un environemment stérile. Son chat miaule toutes les deux secondes dans la console(bonus). La consultation coûte 50€. Les patients son dans un état de traitement avant de sortir du cabinet.
+let diagnostique = {
+    "mal indenté" : "ctrl+maj+f",
+    "unsave" : "saveOnFocusChange",
+    404 : "CheckLinkRelation",
+    "azmatique" : "Ventoline",
+    "syntaxError" : "f12+doc",
+}
 
 let doctor = {
     nom : "MrDoctor",
@@ -55,35 +62,11 @@ let doctor = {
         console.log("miau");
     },
     diagnostique(patient){
-        switch (patient.maladie) {
-            case "mal indenté":
-                patient.paye(50, this);
-                patient.poche ="ctrl+maj+f";
-                break;
-
-            case "unsave":
-                patient.paye(50, this);
-                patient.poche = "saveOnFocusChange";
-                break;
-
-            case "404":
-                patient.paye(50, this);
-                patient.poche = "CheckLinkRelation";
-                break;
-
-            case "azmatique":
-                patient.paye(50, this);
-                patient.poche = "Ventoline";
-                break;
-
-            case "syntaxError":
-                patient.paye(50, this);
-                patient.poche = "f12+doc";
-                break;
-            
-            default:
-                console.log("maladie introuvable");
-                break;
+        for (const key in diagnostique) {
+            if (key == patient.maladie) {
+                patient.poche = diagnostique[key];
+                patient.paye(50, this)
+            }
         }
     },
     patientIn(patient){
@@ -95,7 +78,7 @@ let doctor = {
     }
 }
 
-setInterval(doctor.chat, 2000);
+//setInterval(doctor.chat, 2000);
 
 // |nom|argent|cabinet|diagnostique|patienTIn|patientOut
 // |---|---|---|---|---|---|
@@ -112,64 +95,27 @@ setInterval(doctor.chat, 2000);
 
 // ## La pharmacie
 // >Les patients iront par après à la pharmacie et recevront leur traitement s'ils ont assez d'argent. Dans le cas ou ils ont assez d'argent ils seront alors en bonne santé sinon ils seront mort et il faudra alors les pousser dans un cimetière.
+let tarif = {
+    "ctrl+maj+f" : 60,
+    "saveOnFocusChange" : 100,
+    "CheckLinkRelation" : 35,
+    "Ventoline" : 40,
+    "f12+doc" : 20,
+}
+
 let pharmacie = {
     pharma : [],
     argent : 100,
     tarif(patient){
-        switch (patient.poche) {
-            case `ctrl+maj+f`:
-                if(patient.argent >= 60){
-                    patient.paye(60, this);
-                    patient.traitement("bonne santé");
+        for (const key in tarif) {
+            if (patient.poche == key) {
+                if (patient.argent >= tarif[key]) {
+                    patient.paye(tarif[key], this)
                 } else {
                     patient.traitement("mort");
                     cimetiere.push(patient);
                 }
-                break;
-            
-            case `saveOnFocusChange`:
-                if(patient.argent >= 100){
-                    patient.paye(100, this);
-                    patient.traitement("bonne santé");
-                } else {
-                    patient.traitement("mort");
-                    cimetiere.push(patient);
-                }
-                break;
-
-            case `CheckLinkRelation`:
-                if(patient.argent >= 35){
-                    patient.paye(35, this);
-                    patient.traitement("bonne santé");
-                } else {
-                    patient.traitement("mort");
-                    cimetiere.push(patient);
-                }
-                break;
-
-            case `Ventoline`:
-                if(patient.argent >= 40){
-                    patient.paye(40, this);
-                    patient.traitement("bonne santé");
-                } else {
-                    patient.traitement("mort");
-                    cimetiere.push(patient);
-                }
-                break;
-
-            case `f12+doc`:
-                if(patient.argent >= 20){
-                    patient.paye(20, this);
-                    patient.traitement("bonne santé");
-                } else {
-                    patient.traitement("mort");
-                    cimetiere.push(patient);
-                }
-                break;
-                
-            default:
-                console.log("Le patient n'as pas de prescription");
-                break;
+            }
         }
     }
 
